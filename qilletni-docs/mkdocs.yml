@@ -1,0 +1,57 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+
+site_name: "Qilletni Language Docs"
+site_description: "Documentation, code examples, and library help for Qilletni"
+site_url: "https://qilletni.yarr.is/"  # Update this to your site URL if you have one
+repo_url: "https://github.com/RubbaBoy/QilletniDocs"  # Example: link to your repo
+
+theme:
+  name: 'material'
+  highlightjs: true
+  features:
+    - navigation.tracking
+    - navigation.sections
+#    - navigation.expand
+    - navigation.prune
+    - navigation.path
+    - content.code.copy
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js
+  - js/hljs-qilletni.js
+  - js/hljs-init.js
+
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css
+
+nav:
+  - Home: index.md
+  - Quickstart:
+      - Getting Started: quickstart/getting_started.md
+      - Spotify Integration*: quickstart/spotify_integration.md
+  - Project Structure: project_structure.md
+  - Language:
+      - Introduction: language/introduction.md
+      - Syntax:
+          - Operators: language/syntax/operators.md
+      - Types:
+          - Build-in types: language/types/built_in_types.md
+          - Entities*: language/types/entities.md
+          - Lists*: language/types/lists.md
+          - Type system*: language/types/type_system.md
+      - Service Providers*: language/service_providers.md
+      - Documenting Code*: language/documenting_code.md
+  - Package Configs: package_configs.md
+  - Libraries*:
+      - Standard Library: stdlib.md
+      - Extended Libraries: extended_libs.md
+  - Code Examples: examples.md
+
+markdown_extensions:
+  - attr_list
+  - toc
+#      permalink: true
+  - tables
+  - admonition
+  - codehilite:
+      use_pygments: false
