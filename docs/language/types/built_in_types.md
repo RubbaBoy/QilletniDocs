@@ -270,7 +270,9 @@ album a3 = "https://open.spotify.com/album/7ulI5y1UiuepuQD61gcKHo?si=1Ip8PdIdTQK
 
 The above album definitions all represent the same albums.
 
-TODO: Implement getting songs from albums
+!!! info "Planned Feature"
+
+	Fetching songs from albums is a planned feature. It is already possible from within a service provider.
 
 ### Playlists
 
@@ -308,4 +310,79 @@ play myPlaylist limit[30m]  // Plays 30 minutes of songs
 
 ### Artists
 
+Artists aren't handled as natively as other music types are, as they are an entity. The entity consists of a name and a unique ID. Below are examples of getting an artist:
+
+```qilletni
+song mySong = "Orchid Street" by "Arimea"
+
+Artist artist = mySong.getArtist()
+printf("Artist id: '%s' name: '%s'", [artist.getId(), artist.getName()])  // Prints "Artist id: '6qNHuzJVAGJ8h2D0qo6wAh' name: 'Arimea'"
+```
+
 ## Weights
+
+Weights in Qilletni are a unique way of playlist orchestration. They manipulate the way Qilletni chooses which songs to play while playing from a collection. The following is an example of a simple weight definition.
+
+```qilletni
+weights demoWeights =
+	| 25% "MANGO" by "This Is Falling"
+	| 25% "Reflections" by "I Sworn"
+```
+
+The above weights, when applied to a collection, make "MANGO" play 25% of the time, for every song picked from the playlist. Likewise, "Reflections" is played 25% of the time, independently to anything else. For percent multipliers, the song doesn't necessarily have to be in the collection it's applied to. If all the percent multipliers add up to 100%, the songs in the collection will be ignored.
+
+Below is a visualization of a normal random shuffle of 20 songs through a playlist, and the same playlist with weights applied. The playlist consists of 10 songs, including "MANGO" and "Reflections".
+
+
+<!-- Shared Legend -->
+<div id="legend-container" class="legend"></div>
+
+<!-- Container for Playlists -->
+<div class="playlists-container">
+    <div id="playlist-1" class="playlist"></div>
+    <div id="playlist-2" class="playlist"></div>
+</div>
+
+<script>
+    window.onload = function() {
+        const songColors = {
+            "MANGO": "#f44336", // Red
+            "Reflections": "#2196f3", // Blue
+            // "Monarch": "#9c27b0", // Purple
+            // "Song 4": "#ffeb3b", // Yellow
+            // "Song 5": "#795548", // Brown
+            "Other": "#4caf50", // Green
+        };
+
+        const unweighted = ["Other", "Other", "Other", "Reflections", "Other", "MANGO", "Other", "Other", "Other", "Other", "Other", "Other", "MANGO", "Other", "Other", "Other", "Reflections", "Other", "Other", "Other"];
+        const weighted = ["Reflections", "Other", "MANGO", "Other", "Reflections", "Other", "Reflections", "Other", "Other", "MANGO", "Other", "Reflections", "MANGO", "Other", "Other", "Other", "MANGO", "Other", "MANGO", "Reflections"];
+    
+            // Render the shared legend
+        const legendElement = document.getElementById("legend-container");
+        legendElement.innerHTML = "";
+        Object.keys(songColors).forEach(song => {
+            const legendItem = document.createElement("div");
+            legendItem.className = "legend-item";
+    
+            const colorSquare = document.createElement("span");
+            colorSquare.className = "color-square";
+            colorSquare.style.backgroundColor = songColors[song];
+    
+            const songName = document.createElement("span");
+            songName.className = "song-name";
+            songName.textContent = song;
+    
+            legendItem.appendChild(colorSquare);
+            legendItem.appendChild(songName);
+            legendElement.appendChild(legendItem);
+        });
+    
+        // Render the playlists
+        renderPlaylist("playlist-1", songColors, unweighted, "Unweighted Shuffle");
+        renderPlaylist("playlist-2", songColors, weighted, "Weighted");
+    };
+</script>
+
+[//]: # (// "Reborn" is played 5x as often as it normally would, assuming it is in the playlist. In other words, imagine the collection was taken and "Reborn" was in there once. If it was originally in the collection twice, it will show up 10 times.)
+
+[//]: # (On average, "MANGO" and "Reflections" will show up roughly half of the songs played.)

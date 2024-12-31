@@ -20,9 +20,11 @@ extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js
   - js/hljs-qilletni.js
   - js/hljs-init.js
+  - js/playlist_visual.js
 
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css
+  - css/playlist_visual.css
 
 nav:
   - Home: index.md
