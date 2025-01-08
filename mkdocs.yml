@@ -38,7 +38,7 @@ nav:
       - Syntax:
           - Operators: language/syntax/operators.md
       - Types:
-          - Build-in types: language/types/built_in_types.md
+          - Built-in types: language/types/built_in_types.md
           - Entities*: language/types/entities.md
           - Lists*: language/types/lists.md
           - Type system*: language/types/type_system.md

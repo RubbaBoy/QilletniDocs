@@ -38,7 +38,7 @@
             // Exclude keywords like `if`, `else`, `for`, etc. from being treated as function names
             {
                 className: 'function',
-                begin: /\b(?!if|else|for|while|return|native|fun)[a-zA-Z_][a-zA-Z0-9_]*(?=\s*\()/,
+                begin: /\b(?!if|else|for|while|return|native|fun|int|double|collection)[a-zA-Z_][a-zA-Z0-9_]*(?=\s*\()/,
                 relevance: 0
             }
         ]
