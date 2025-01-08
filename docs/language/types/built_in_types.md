@@ -272,7 +272,7 @@ The above album definitions all represent the same albums.
 
 !!! info "Planned Feature"
 
-	Fetching songs from albums is a planned feature. It is already possible from within a service provider.
+	Fetching songs from albums is a planned feature. It is already possible natively from within a service provider.
 
 ### Playlists
 
