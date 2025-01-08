@@ -364,7 +364,7 @@ Below is a visualization of a normal random shuffle of 20 songs through a playli
 
 ### Nested Weights
 
-Weights can give you some more advanced control over how your songs are chosen from weights. Nested weights allow for the system to choose a weight from a child weight every time the parent weight is chosen. Child weights (ones that are nested) must contain only percentages that add up to 100%, as something from it is always chosen. For example, the below code is equivalent to the previous example:
+Weights can give you some more advanced control over how your songs are chosen from weights. Nested weights allow for the system to choose a song from a child weight every time the parent weight is chosen. Child weights (ones that are nested) must contain only percentages that add up to 100%, as something from it is always chosen. For example, the below code is equivalent to the previous example:
 
 ```qilletni 
 weights childWeights =
@@ -379,11 +379,15 @@ This is equivalent because originally, each song had a 25% chance of being chose
 
 ### Function Call Weights
 
-Along with nested weights, weights allow for function calls instead of chosen a song from a child weight. This acts the same as adding a child weight, but with a function (optionally with parameters) that is evaluated every time the weight is chosen. The function must always return a song.
+Along with nested weights, weights allow for function calls instead of chosen a song from a child weight. This acts the same as adding a child weight, but with a function (optionally with parameters) that is evaluated every time the weight is chosen. The function must always return a song. The following example is also equivalent to the last two.
 
 ```qilletni
 fun mySongFunction() {
-	return "MANGO" by "This Is Falling"
+	if (random(0, 10) < 5) {  // 50% of the time
+		return "MANGO" by "This Is Falling"
+	} else {
+		return "Reflections" by "I Sworn"
+	}
 }
 
 weights demoWeights =
