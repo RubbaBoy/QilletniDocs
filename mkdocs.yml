@@ -25,6 +25,7 @@ extra_javascript:
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css
   - css/playlist_visual.css
+  - css/extra.css
 
 nav:
   - Home: index.md
@@ -57,3 +58,6 @@ markdown_extensions:
   - admonition
   - codehilite:
       use_pygments: false
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg

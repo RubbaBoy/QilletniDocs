@@ -282,9 +282,10 @@ In Qilletni, a playlist is abstracted as a `collection`. A collection is what it
 collection c1 = "rage death kill" collection by "rubbaboy"
 collection c2 = "2fupEjJ1lamW0dfAsXJag6"
 collection c3 = "https://open.spotify.com/playlist/2fupEjJ1lamW0dfAsXJag6?si=45dd2429fd0a46ba"
+collection c4 = collection(["Empath" by "Fayne", "Full Tilt" by "Johnny Booth", "7L7" by "Above This"])  // Creates an in-memory collection with 3 songs in it
 ```
 
-The above collections all define the same playlist.
+The above collections (aside from the last) all define the same playlist. `c4` is defined by a cast-like syntax, taking in a song list within the `collection( )`. The created collection doesn't exist other than in the program's memory, but may act like any other collection.
 
 A collection may also have weights assigned to it, along with an order, in the syntax of:
 
@@ -329,22 +330,19 @@ weights demoWeights =
 	| 25% "Reflections" by "I Sworn"
 ```
 
-The above weights, when applied to a collection, make "MANGO" play 25% of the time, for every song picked from the playlist. Likewise, "Reflections" is played 25% of the time, independently to anything else. For percent multipliers, the song doesn't necessarily have to be in the collection it's applied to. If all the percent multipliers add up to 100%, the songs in the collection will be ignored.
+The above weights, when applied to a collection, make "MANGO" play 25% of the time, for every song picked from the playlist. Likewise, "Reflections" is played 25% of the time, independently to anything else. For percent multipliers, the song doesn't necessarily have to be in the collection it's applied to. If all the percent multipliers add up to 100%, the songs in the collection will be ignored. Note the separator `|`. This disallows for the songs to repeat, allowing for a less repetitive mix. To fine tune this, see [Weight Separators](#weight-separators).
 
-Below is a visualization of a normal random shuffle of 20 songs through a playlist, and the same playlist with weights applied. The playlist consists of 10 songs, including "MANGO" and "Reflections".
+Below is a visualization of a normal random shuffle of 20 songs through a playlist, and the same playlist with weights applied. The playlist consists of 10 songs, including "MANGO" and "Reflections". In the rest of this, the same playlist and visualization techniques will be used, just with different weights to highlight differences.
 
 
-<!-- Shared Legend -->
 <div id="legend-container" class="legend"></div>
-
-<!-- Container for Playlists -->
 <div class="playlists-container">
     <div id="playlist-1" class="playlist"></div>
     <div id="playlist-2" class="playlist"></div>
 </div>
 
 <script>
-    window.onload = function() {
+    window.addEventListener("load", function() {
         const songColors = {
             "MANGO": "#f44336", // Red
             "Reflections": "#2196f3", // Blue
@@ -357,32 +355,191 @@ Below is a visualization of a normal random shuffle of 20 songs through a playli
         const unweighted = ["Other", "Other", "Other", "Reflections", "Other", "MANGO", "Other", "Other", "Other", "Other", "Other", "Other", "MANGO", "Other", "Other", "Other", "Reflections", "Other", "Other", "Other"];
         const weighted = ["Reflections", "Other", "MANGO", "Other", "Reflections", "Other", "Reflections", "Other", "Other", "MANGO", "Other", "Reflections", "MANGO", "Other", "Other", "Other", "MANGO", "Other", "MANGO", "Reflections"];
     
-            // Render the shared legend
-        const legendElement = document.getElementById("legend-container");
-        legendElement.innerHTML = "";
-        Object.keys(songColors).forEach(song => {
-            const legendItem = document.createElement("div");
-            legendItem.className = "legend-item";
+        renderLegend("legend-container", songColors);
     
-            const colorSquare = document.createElement("span");
-            colorSquare.className = "color-square";
-            colorSquare.style.backgroundColor = songColors[song];
-    
-            const songName = document.createElement("span");
-            songName.className = "song-name";
-            songName.textContent = song;
-    
-            legendItem.appendChild(colorSquare);
-            legendItem.appendChild(songName);
-            legendElement.appendChild(legendItem);
-        });
-    
-        // Render the playlists
         renderPlaylist("playlist-1", songColors, unweighted, "Unweighted Shuffle");
         renderPlaylist("playlist-2", songColors, weighted, "Weighted");
-    };
+    });
 </script>
 
-[//]: # (// "Reborn" is played 5x as often as it normally would, assuming it is in the playlist. In other words, imagine the collection was taken and "Reborn" was in there once. If it was originally in the collection twice, it will show up 10 times.)
+### Nested Weights
 
-[//]: # (On average, "MANGO" and "Reflections" will show up roughly half of the songs played.)
+Weights can give you some more advanced control over how your songs are chosen from weights. Nested weights allow for the system to choose a weight from a child weight every time the parent weight is chosen. Child weights (ones that are nested) must contain only percentages that add up to 100%, as something from it is always chosen. For example, the below code is equivalent to the previous example:
+
+```qilletni 
+weights childWeights =
+	| 50% "MANGO" by "This Is Falling"
+	| 50% "Reflections" by "I Sworn"
+
+weights demoWeights =
+	| 50% childWeights
+```
+
+This is equivalent because originally, each song had a 25% chance of being chosen. `childWeights` has a 50% chance of being chosen, and each song in `childWeights` has an additional 50% chance. `0.50 * 0.50 = 0.25 = 25%`
+
+### Function Call Weights
+
+Along with nested weights, weights allow for function calls instead of chosen a song from a child weight. This acts the same as adding a child weight, but with a function (optionally with parameters) that is evaluated every time the weight is chosen. The function must always return a song.
+
+```qilletni
+fun mySongFunction() {
+	return "MANGO" by "This Is Falling"
+}
+
+weights demoWeights =
+	| 50% mySongFunction()
+```
+
+### Collection Weights
+
+Weights may also use a collection to choose what song to play when a weight is selected. The song is selected as it would normally be played from the collection. This includes its own weights, ordering, etc. For example, these are two code examples, one with a collection that's shuffled, and onme that is ordered, and a visualization of their outputs. The playlist `child playlist` contains the songs `"I"`, `"II"`, and `"III"`.
+
+```qilletni
+weights demoWeights =
+	| 50% "child playlist" collection by "rubbaboy"  // By default shuffled
+	
+weights demoWeights =
+	| 50% "child playlist" collection by "rubbaboy" order[sequential]
+```
+
+<div id="legend-container-2" class="legend"></div>
+<div class="playlists-container">
+    <div id="playlist-1-2" class="playlist"></div>
+    <div id="playlist-2-2" class="playlist"></div>
+</div>
+
+<script>
+    window.addEventListener("load", function() {
+        // Colors in the legend
+        const displayColors = {
+            "child playlist": "#f44336", // Red
+            "Other": "#4caf50" // Green
+        };
+
+        // Songs to actually light up
+        const songColors = {
+            "I": "#f44336", // Red
+            "II": "#f44336", // Red
+            "III": "#f44336", // Red
+            "Other": "#4caf50" // Green
+        };
+    
+        const first = ["II", "III", "Other", "I", "Other", "Other", "II", "I", "II", "Other", "I", "III", "Other", "Other", "II", "I", "Other", "III", "II", "Other"];
+        const second = ["Other", "Other", "I", "Other", "II", "III", "Other", "I", "Other", "Other", "II", "III", "I", "II", "Other", "III", "Other", "Other", "I", "Other"];
+    
+        renderLegend("legend-container-2", displayColors);
+    
+        const names = ["I", "II", "III"];
+    
+        renderPlaylist("playlist-1-2", songColors, first, "Shuffled", names);
+        renderPlaylist("playlist-2-2", songColors, second, "Sequential", names);
+    });
+</script>
+
+As you can see, when the child playlist is sequential, each time a song is selected from the collection, it is the next song in the collection.
+
+### List Weights
+
+Similar to collection weights, a weight may take in a list of songs as shorthand to defining a collection expression. This is functionally a shorthand of creating a collection that is shuffled. Each time a song is selected from the list, it is randomly chosen and played. Below is an example of a shorthand list weight, and then the equivalent with using a `collection`.
+
+```qilletni
+weights demoWeights =
+	| 50%  ["I" by "BLACKSHAPE", "II" by "BLACKSHAPE", "III" by "BLACKSHAPE"]
+
+weights demoWeights =
+	| 50%  collection(["I" by "BLACKSHAPE", "II" by "BLACKSHAPE", "III" by "BLACKSHAPE"]) order[shuffle]
+```
+
+
+### Weight Separators
+
+Weights also allow for more fine grain control. The separator before each line in the weights `|` may be replaced with one of the following. The below table shows the separator and what it does when the weight is selected. In the context of the table, an individual weight is the line in the `weights` expression. So it may be a song, function call, weight, or a collection.
+
+| Separator Character | Song Repeats                                        | Weight Repeats | Description                                                  |
+| ------------------- | --------------------------------------------------- | -------------- | ------------------------------------------------------------ |
+| `|`                 | :material-close:{ .table-icon } | :material-check:{ .table-icon }        | This song may **not** be chosen next, but the weight may be |
+| `|!`                | :material-check:{ .table-icon } | :material-check:{ .table-icon } | **Both** the song/line and the weight may be chosen next |
+| `|~`                | :material-close:{ .table-icon }| :material-close:{ .table-icon } | **Neither** the song nor the weight may be chosen next       |
+
+The column Song Repeats is the song that is chosen from the collection, function, etc. If applied to a single song, the Weight Repeats column may be the same as the Song Repeats column.
+
+Below is another visualization of using the separators, using the following code:
+
+```qilletni
+weights childWeights =
+    | 50% "MANGO" by "This Is Falling"
+    | 50% "Reflections" by "I Sworn"
+
+weights demoWeights =
+    | 50% childWeights
+
+weights demoWeights =
+    |! 50% childWeights
+    
+weights demoWeights =
+    |~ 50% childWeights
+```
+
+
+<div id="legend-container-3" class="legend"></div>
+<div class="playlists-container">
+    <div id="playlist-1-3" class="playlist"></div>
+    <div id="playlist-2-3" class="playlist"></div>
+    <div id="playlist-3-3" class="playlist"></div>
+</div>
+
+<script>
+    window.addEventListener("load", function() {
+        const songColors = {
+            "MANGO": "#f44336", // Red
+            "Reflections": "#2196f3", // Blue
+            "Other": "#4caf50", // Green
+        };
+
+        const first = ["Other", "MANGO", "Other", "Other", "Reflections", "Other", "MANGO", "Other", "MANGO", "Reflections", "MANGO", "Other", "Reflections", "Other", "Reflections", "Other", "MANGO", "Other", "MANGO", "Other"];
+        const second = ["Reflections", "Other", "Other", "MANGO", "Reflections", "MANGO", "Reflections", "Other", "Reflections", "Reflections", "MANGO", "Reflections", "Reflections", "MANGO", "MANGO", "Other", "Other", "Other", "MANGO", "Other"];
+        const third = ["MANGO", "Other", "Other", "MANGO", "Other", "Reflections", "Other", "Other", "MANGO", "Other", "Reflections", "Other", "Other", "MANGO", "Other", "Other", "Reflections", "Other", "Reflections", "Other"];
+    
+        renderLegend("legend-container-3", songColors);
+    
+        renderPlaylist("playlist-1-3", songColors, first, "| Separator");
+        renderPlaylist("playlist-2-3", songColors, second, "|! Separator");
+        renderPlaylist("playlist-3-3", songColors, third, "|~ Separator");
+    });
+</script>
+
+### Multiplicative  Weights
+
+A less obtrusive way of shuffling a playlist is using multiplicative weights. Instead of having a set probability for every time a song is played, they simply increase the chance a song is played. This takes the following format:
+
+```qilletni
+weights demoWeights =
+    | 5x "Reflections" by "I Sworn"
+```
+
+"Reflections" is played 5x as often as it normally would, assuming it is in the collection (if it's not, it will do nothing). In other words, imagine the collection was taken and "Reflections" was in there once. This will act as if it was in it 5 times. If it was originally in the collection twice, it will show up 10 times.
+
+Let's say the collection has 10 songs in it, one being "Reflections". The following is a shuffle of 20 songs from the playlist, before and after the 5x multiplicative weight.
+
+<div id="legend-container-4" class="legend"></div>
+<div class="playlists-container">
+    <div id="playlist-1-4" class="playlist"></div>
+    <div id="playlist-2-4" class="playlist"></div>
+</div>
+
+<script>
+    window.addEventListener("load", function() {
+        const songColors = {
+            "Reflections": "#2196f3", // Blue
+            "Other": "#4caf50", // Green
+        };
+
+        const unweighted = ["Other", "Other", "Other", "Other", "Other", "Reflections", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Reflections", "Other", "Other", "Other"];
+        const weighted = ["Other", "Reflections", "Reflections", "Other", "Other", "Other", "Other", "Reflections", "Other", "Other", "Other", "Reflections", "Reflections", "Other", "Reflections", "Other", "Other", "Reflections", "Reflections", "Other"];
+    
+        renderLegend("legend-container-4", songColors);
+    
+        renderPlaylist("playlist-1-4", songColors, unweighted, "Unweighted Shuffle");
+        renderPlaylist("playlist-2-4", songColors, weighted, "Multiplicative Weights");
+    });
+</script>
