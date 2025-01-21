@@ -11,7 +11,9 @@ The following is an estimation of Qilletni's operator associativity and preceden
 | additive       | `+` `-`                     | Left-to-right     | Handles addition/subtraction, `+` also handles string concatenation between numbers, strings, direct function calls and parentheses-wrapped expressions `( expression )` |
 | range/cascade  | `..`                        | Left-to-right     | Used both in `for (i..10)` or through cascade assignment `foo..bar = 0 ..baz = 1` |
 | relational     | `>` `<` `>=` `<=` `==` `!=` | Left-to-right     | Compares two expressions, returning a boolean                |
-| type check     | `as`                        | Left-to-right     | Checks the type of a variable                                |
+| logical AND    | `&&`                        | Left-to-right     | Checks if both sides of the keyword are true                 |
+| logical OR     | `||`                        | Left-to-right     | Checks if at least one side of the keyword is true           |
+| type check     | `is`                        | Left-to-right     | Checks the type of a variable                                |
 | assignment     | `=` `+=` `-=`               | Right-to-left     | `=` is **not** an expression, and does not return a value    |
 
 Most operators create an expression. The only exceptions are assignment and range/cascade. Operators that may require some additional information are outlined below. Most are used how you would expect.

@@ -8,11 +8,13 @@ Qilletni comes with following primary types to get started with in its standard 
 - Lists (`type[]`)
 - Maps (`Map`)
 - Optional (`Optional`)
+- Any (`any`) // TODO
 - Songs (`song`)
 - Albums (`album`)
 - Playlists (`collection`)
 - Artists (`Artist`)
 - Weights (`weights`)
+- Java Reference (`java`)
 
 ## Numbers
 
@@ -547,3 +549,14 @@ Let's say the collection has 10 songs in it, one being "Reflections". The follow
         renderPlaylist("playlist-2-4", songColors, weighted, "Multiplicative Weights");
     });
 </script>
+
+## Java References
+
+Java references are useful for interfacing with native methods that may require some special data to be associated with the field (or often times with the containing entity). A java reference may be assigned with either the keyword `empty` to signify a null Java reference internally, or as a return value from a function (usually a native function).
+
+```qilletni
+java myRef = empty
+java funcRet = someNativeMethod()
+```
+
+To see more how a Java reference is used, see the [Native Binding Reference](/native_binding/introduction).

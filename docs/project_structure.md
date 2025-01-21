@@ -140,7 +140,7 @@ The available properties are:
 
 The following is an example of all the properties being used:
 
-```yml
+```yaml title="qilletni_info.yml"
 name: spotify
 version: 1.0.0
 author: Adam Yarris

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Design Playlist</title>
+    <style>
+        /* Base styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .playlist {
+            width: 150px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .song {
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.2s;
+            color: #fff;
+        }
+
+        /*.song:hover {*/
+        /*    transform: scale(1.02);*/
+        /*}*/
+    </style>
+</head>
+<body>
+<div id="playlist" class="playlist"></div>
+
+<script>
+    // Input: Map of songs to colors
+    const songColors = {
+        "Song 1": "#f44336", // Red
+        "Song 2": "#2196f3", // Blue
+        "Song 3": "#4caf50", // Green
+        "Song 4": "#ffeb3b", // Yellow
+        "Song 5": "#795548", // Brown
+        "Song 6": "#9c27b0", // Purple
+    };
+
+    const materialColors = [
+        "#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5",
+        "#2196F3", "#03A9F4", "#00BCD4", "#009688", "#4CAF50",
+        "#8BC34A", "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800",
+        "#FF5722", "#795548", "#9E9E9E", "#607D8B"
+    ];
+
+    // Input: List of songs to display
+    const displayOrder = ["Song 3", "Song 1", "Song 5", "Song 6", "Song 4", "Song 2"];
+
+    // Render the playlist
+    const playlistElement = document.getElementById("playlist");
+
+    displayOrder.forEach(song => {
+        // Create a new div for each song
+        const songElement = document.createElement("div");
+        songElement.className = "song";
+        songElement.style.backgroundColor = songColors[song] || "#000"; // Default to black if color not found
+
+        // Add the song to the playlist
+        playlistElement.appendChild(songElement);
+    });
+</script>
+</body>
+</html>

@@ -11,19 +11,16 @@ theme:
   features:
     - navigation.tracking
     - navigation.sections
-#    - navigation.expand
+    - navigation.expand
     - navigation.prune
     - navigation.path
     - content.code.copy
+    - content.code.annotate
 
 extra_javascript:
-  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js
-  - js/hljs-qilletni.js
-  - js/hljs-init.js
   - js/playlist_visual.js
 
 extra_css:
-  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css
   - css/playlist_visual.css
   - css/extra.css
 
@@ -37,13 +34,19 @@ nav:
       - Introduction: language/introduction.md
       - Syntax:
           - Operators: language/syntax/operators.md
+          - Extension Functions: language/syntax/extension_functions.md
       - Types:
           - Built-in types: language/types/built_in_types.md
-          - Entities*: language/types/entities.md
-          - Lists*: language/types/lists.md
+          - Entities: language/types/entities.md
+#          - Lists*: language/types/lists.md
           - Type system*: language/types/type_system.md
       - Service Providers*: language/service_providers.md
       - Documenting Code*: language/documenting_code.md
+  - Native Binding:
+      - Introduction: native_binding/introduction.md
+      - Native Functions: native_binding/native_functions.md
+      - Native Bind Factories: native_binding/native_bind_factories.md
+      - Usage Examples: native_binding/usage_examples.md
   - Package Configs: package_configs.md
   - Libraries*:
       - Standard Library: stdlib.md
@@ -57,7 +60,11 @@ markdown_extensions:
   - tables
   - admonition
   - codehilite:
-      use_pygments: false
+      use_pygments: true
+      guess_lang: false
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
