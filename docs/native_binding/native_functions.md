@@ -56,7 +56,7 @@ public class CatFunctions {
 }
 ```
 
-1. This type is automatically injected into the class when the method is invoked. Check below for other classes that may be injected.
+1. This type is automatically injected into the class when the method is invoked. See [Native Bind Factories](/native_binding/native_bind_factories/) for other classes that may be injected.
 
 The following is a basic example of a function that takes in a parameter. For demonstration, they are mixed in both auto converted types and an unconverted type.
 
@@ -165,7 +165,7 @@ public void catBirthday(EntityType catEntity) {
 
 ### Entity/Record Conversion
 
-Entities may also be automatically converted to and from Java records, using the [TypeConverter](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/conversion/TypeConverter.html) class. Below is an example of taking in an entity and automatically converting it to a record.
+Entities may also be automatically converted to and from Java records, using the [TypeConverter](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/conversion/TypeConverter.html) class. The instance of this class is acquired through automatic injection, see [Native Bind Factories](/native_binding/native_bind_factories/) for more information, and the other classes available to use. Below is an example of taking in an entity and automatically converting it to a record.
 
 ```qilletni title="cats.ql"
 entity Cat {
@@ -220,9 +220,67 @@ public EntityType createNewCat(String name, int age) {
 
 ## Native Entity Functions
 
-// TODO
+Qilletni also supports native entity member functions. This is defined in Qilletni the same as a normal native method, just in the entity.
+
+```qilletni title="cats.ql"
+entity Cat {
+	string name
+	int age
+	
+	Cat(name, age)
+	
+	native fun pet()
+}
+```
+
+Implementing this function in Java uses the [@NativeOn](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lib/annotations/NativeOn.html) annotation on the method. This takes in the entity name this is on (`on` in a similar context to an extension method's syntax).
+
+```java title="CatFunctions.java"
+@NativeOn("Cat")
+public void pet() {
+    StringType name = catEntity.getEntityScope().<StringType>lookup("name").getValue();
+    System.out.println("Petting %s!".formatted(name.getValue()));
+}
+```
+
+Often times a whole Java class is dedicated for native methods on an entity. The @NativeOn annotation may also be applied to a class definition, making all methods that line up with signatures native methods, as shown below.
+
+``` java title="CatFunctions.java"
+@NativeOn("Cat")
+public class CatFunctions {
+    public void pet() {
+        StringType name = catEntity.getEntityScope().<StringType>lookup("name").getValue();
+        System.out.println("Petting %s!".formatted(name.getValue()));
+    }
+}
+```
 
 ## Injectable Types
 
-// TODO
+Qilletni providers a set of classes that may be put in the constructor, and are populated when a native method is invoked. It also has the ability to inject your own classes to be used both by other libraries or scoped to just your own. See the [Native Bind Factories](/native_binding/native_bind_factories) page for more information on this.
 
+## Preload Methods
+
+Sometimes, especially in the case of when many methods are being performed on the same entity, a common action must happen before any of the methods get invoked. Executing code other than member variable setting is not recommended, so for this, the [@BeforeAnyInvocation](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lib/annotations/BeforeAnyInvocation.html) annotation may be used on a single method in the class, which will be invoked before the body of any native method is ran. This method takes one parameter, which is the EntityType the method is being invoked on. This may set up instance variables (as there is one instance of the class for every call) or do anything else necessary. The example below is from the standard library std-lib, ensuring the song is populated with service provider data before an invocation is made on it.
+
+```java title="SongFunctions.java"
+@NativeOn("song")
+public class SongFunctions {
+    private final MusicPopulator musicPopulator;
+
+    public SongFunctions(MusicPopulator musicPopulator) {
+        this.musicPopulator = musicPopulator;
+    }
+
+    @BeforeAnyInvocation
+    public void setupSong(SongType songType) {
+        musicPopulator.populateSong(songType);
+    }
+
+    public String getTitle(SongType songType) { // (1)!
+        return songType.getTrack().getName();
+    }
+}
+```
+
+1. If the `@BeforeAnyInvocation` method wasn't ran and the song hadn't been loaded yet, [getTrack()](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/SongType.html#getTrack()) would be null.
