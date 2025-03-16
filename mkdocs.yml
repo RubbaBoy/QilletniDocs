@@ -52,6 +52,8 @@ nav:
       - Standard Library: stdlib.md
       - Extended Libraries: extended_libs.md
   - Code Examples: examples.md
+  - Misc:
+      - Hosting Docs: misc/hosting_docs.md
 
 markdown_extensions:
   - attr_list

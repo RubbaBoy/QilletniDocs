@@ -8,7 +8,7 @@ class QilletniLexer(RegexLexer):
 
     name = 'Qilletni'
     aliases = ['qil', 'qilletni']
-    filenames = []  # e.g., ['*.qil'] if you have a file extension
+    filenames = []
 
     keywords = (
         'import', 'as', 'if', 'else', 'for', 'fun', 'static', 'native', 'on', 'return',

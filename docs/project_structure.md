@@ -132,6 +132,7 @@ The available properties are:
 | name                | yes      | string                 | The name of the project, typically snake_case                |
 | version             | yes      | string                 | The x.y.z version                                            |
 | author              | yes      | string                 | The author's name                                            |
+| description         | no       | string                 | A description of the library                                 |
 | dependencies        | no       | package list           | A list of packages the library or application depends on     |
 | provider            | no       | Java class string      | The Java class that implements the `ServiceProvider` interface, if the library includes a [service provider](language_reference/service_providers.md) |
 | native_bind_factory | no       | Java class string      | The Java class that implements `NativeFunctionBindingFactory` to provide native methods' implementations with singleton instances of objects. See [Native Binding Factories](native_binding/native_binding_factories.md) |
@@ -144,6 +145,7 @@ The following is an example of all the properties being used:
 name: spotify
 version: 1.0.0
 author: Adam Yarris
+description: A service provider that adds support for Spotify
 dependencies:
   - 1.0.0:postgres
 provider: is.yarr.qilletni.music.spotify.provider.SpotifyServiceProvider
