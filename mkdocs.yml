@@ -46,6 +46,7 @@ nav:
       - Introduction: native_binding/introduction.md
       - Native Functions: native_binding/native_functions.md
       - Native Bind Factories: native_binding/native_bind_factories.md
+      - Background Tasks: native_binding/background_tasks.md
       - Usage Examples: native_binding/usage_examples.md
   - Package Configs: package_configs.md
   - Libraries*:

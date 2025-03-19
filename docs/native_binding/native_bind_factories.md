@@ -36,6 +36,7 @@ Below is a list of all classes that are injectable by default, with a brief desc
 | [TypeConverter](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/conversion/TypeConverter.html) | Converts Qilletni types to Java types and back               |
 | [DynamicProvider](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/music/supplier/DynamicProvider.html) | Manages the current service provider, with getters for internal |
 | [PackageConfig](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lib/persistence/PackageConfig.html) | A scoped instance (see section below) of the current library's config |
+| [BackgroundTaskExecutor](https://api.qilletni.yarr.is/qilletni.api/is/yarr/qilletni/api/lang/internal/BackgroundTaskExecutor.html) | Allow for async Qilletni callbacks, outlined in the [Background Tasks](/native_binding/background_tasks) page |
 
 ## Adding Custom Injectable Classes
 

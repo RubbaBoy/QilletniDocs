@@ -82,7 +82,7 @@ Required but not covered here is a webserver to host the generated static files,
 
 To generate docs through a GitHub Action, a step must be added to your workflow to run an SSH command of a library name. The command is just the library name, as it is passed in as a parameter to `run_docs_wrapper.sh`. The following is a simple workflow to document the `spotify` library, ran when manually executed.
 
-```yml
+```yaml
 name: Generate Docs For Library
 
 on:
