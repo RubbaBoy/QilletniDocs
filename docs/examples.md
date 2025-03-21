@@ -1,23 +1,65 @@
 # Code Examples
 
+## Adding Metadata Tags
+
+The following uses the [metadata](https://qilletni-docs.yarr.is/library/metadata/) library. This attaches data to songs, albums and artists to help filter or organize music. This uses an internal database, so metadata persists.
+
 ```qilletni
 import "metadata:metadata.ql"
 
 Metadata metadata = Metadata.createMetadata(Database.createDatabase("localhost", 5444, "metadata", "admin", "pass"))
 
-//album myAlbum = "A Tear in the Fabric of Life" album by "Knocked Loose"
-//metadata.addTag(myAlbum, "album_studio")
-//print(myAlbum)
-
 song mySong = "God Knows" by "Knocked Loose"
 
-//metadata.addTag(mySong, "goated")
+metadata.addTag(mySong, "goated")
+metadata.addTag(mySong, "cool")
 
-print("Tags for song: %s".format([metadata.getTags(mySong).join(", ")]))
+printf("Tags for song: %s", [metadata.getTags(mySong).join(", ")])  // Prints "Tags for song: goated, cool"
 
 ```
 
-### A Recommendation Example
+## Last.Fm to Spotify Conversion
+
+As Qilletni supports automatic and efficient conversion between music providers, collections from one to another is seamless. The following takes a list of Last.Fm songs and adds them to a newly created Spotify playlist.
+
+```qilletni
+import "lastfm:lastfm.ql"
+import "spotify:playlist_tools.ql"
+
+provider "lastfm" // (1)!
+
+Page page = new Page()
+                ..page = 1
+                ..count = 100
+
+LastFmResult result = getTopTracks("RubbaBoy", "3month", page) // (2)!
+
+if (result.isError()) { // (3)!
+    printf("Error: %s", [result.errorMessage])
+    exit(1)
+}
+
+for (track : result.wrappedData.getValue()) {
+    printf("%s\t plays  %s", [track.playCount, track.track])
+}
+
+provider "spotify" // (5)!
+
+collection newPlaylist = createPlaylist("Top Song Playlist") // (4)!
+addToPlaylist(newPlaylist, result.data)
+
+print("Created a playlist with %s songs".format([result.data.size()]))
+```
+
+1. Ensures the music provider is Last.Fm
+2. Makes an API request to Last.Fm to get the top 100 songs played in the last 3 months
+3. Methods that are API calls are handled a little more manually, so they should gracefully terminate if unsuccessful
+4. Create a new Spotify playlist and add the songs
+5. Switch the music provider to Spotify so conversion happens when needed
+
+## Spotify Recommendation API
+
+The Spotify library's [Recommender](https://qilletni-docs.yarr.is/library/spotify/entity/Recommender) entity, the full Spotify recommendation system can be utilized to fine tune music selections.
 
 ```qilletni
 import "spotify:recommendations.ql"
@@ -71,25 +113,13 @@ fun generateUniqueRecommendations() {
 generateUniqueRecommendations()
 
 // Play 2 shuffled songs from metal playlist, then 3 recommendations
-for (recommendations.size() > 0) {
-    play recommendations.pop()
+for (recommendations.size() >= 3) {
+    play metalSongs limit[2]
+
+    for (i..3) {
+        play recommendations.pop()
+    }
 }
-
-recommendations = new Stack()
-
-generateUniqueRecommendations()
-
-for (recommendations.size() > 0) {
-    play recommendations.pop()
-}
-
-//for (recommendations.size() >= 3) {
-//    play metalSongs limit[2]
-//
-//    for (i..3) {
-//        play recommendations.pop()
-//    }
-//}
 
 // Add all played songs to a new playlist
 Date date = Date.now()
@@ -98,3 +128,22 @@ collection myPlaylist = createPlaylist("Recs only %d/%d".format([date.getMonth()
 addToPlaylist(myPlaylist, songList)
 print("Created a playlist with %s songs".format([songList.size()]))
 ```
+
+## Listening For Song Playing
+
+Qilletni can also use hooks to monitor things like what song is currently being played. This ability also allows for server-side processing. The below example logs when the user changes what song they are playing on their account. For how this is implemented, see the [Background Tasks](/native_binding/background_tasks) page.
+
+```qilletni
+import "spotify:hooks.ql"
+
+fun songPlayCallback(sng) { // (1)!
+    printf("Playing:\t%s - %s", [sng.getTitle(), sng.getArtist().getName()])
+}
+
+onSongPlay(songPlayCallback)
+
+// Halt program forever, running background tasks
+processBackground()
+```
+
+1. This method is invoked every time a song is changed
