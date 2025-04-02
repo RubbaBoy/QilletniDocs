@@ -1,6 +1,6 @@
 # Native Methods
 
-Native methods are defined in Qilletni like a normal method signature, but with no body. For instance,
+Native methods in Qilletni are functions that are bound to a Java method. They are defined like a normal method signature, but with no body. For instance,
 
 ```qilletni
 native fun getHostname()
@@ -17,7 +17,7 @@ The naming standard of files with native methods in them is `XyzFunctions`, such
 ```yaml title="qilletni_info.yml"
 # ...
 native_classes:
-  - is.yarr.qilletni.lib.cats.CatFunctions
+  - dev.qilletni.lib.cats.CatFunctions
 ```
 
 ## Creating a Basic Function
@@ -75,7 +75,7 @@ It is recommended to use automatic type conversion, but is not necessary. For a 
 
 ## Qilletni Type Structure
 
-Native types in Qilletni are all subtypes of [QilletniType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/QilletniType.html). A method may both return or take in any QilletniType.
+Native types in Qilletni are all subtypes of [QilletniType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/QilletniType.html). A method may both return or take in any QilletniType.
 
 ## Automatic Type Conversion
 
@@ -83,24 +83,24 @@ To assist with dealing with built-in Qilletni types, Qilletni will automatically
 
 | From                                                         | To                                                           | Notes                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [BooleanType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/BooleanType.html) | boolean                                                      |                                                              |
-| boolean                                                      | [BooleanType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/BooleanType.html) |                                                              |
-| [IntType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/IntType.html) | long                                                         |                                                              |
-| long                                                         | [IntType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/IntType.html) |                                                              |
-| [IntType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/IntType.html) | int                                                          |                                                              |
-| int                                                          | [IntType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/IntType.html) |                                                              |
-| [DoubleType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/DoubleType.html) | double                                                       |                                                              |
-| double                                                       | [DoubleType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/DoubleType.html) |                                                              |
-| [StringType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/StringType.html) | String                                                       |                                                              |
-| String                                                       | [StringType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/StringType.html) |                                                              |
-| [ListType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/ListType.html) | List                                                         | Currently, items inside a list are not transformed to Java types |
-| List                                                         | [ListType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/ListType.html) | A list must contain only the same type                       |
+| [BooleanType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/BooleanType.html) | boolean                                                      |                                                              |
+| boolean                                                      | [BooleanType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/BooleanType.html) |                                                              |
+| [IntType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/IntType.html) | long                                                         |                                                              |
+| long                                                         | [IntType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/IntType.html) |                                                              |
+| [IntType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/IntType.html) | int                                                          |                                                              |
+| int                                                          | [IntType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/IntType.html) |                                                              |
+| [DoubleType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/DoubleType.html) | double                                                       |                                                              |
+| double                                                       | [DoubleType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/DoubleType.html) |                                                              |
+| [StringType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/StringType.html) | String                                                       |                                                              |
+| String                                                       | [StringType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/StringType.html) |                                                              |
+| [ListType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/ListType.html) | List                                                         | Currently, items inside a list are not transformed to Java types |
+| List                                                         | [ListType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/ListType.html) | A list must contain only the same type                       |
 | Map (Entity)                                                 | HashMap                                                      | Converts the std lib's Map to a HashMap                      |
-| Object                                                       | [JavaType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/JavaType.html) | If a native method returns an Object (any non-converted class), it will be given to Qilletni as a JavaType |
+| Object                                                       | [JavaType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/JavaType.html) | If a native method returns an Object (any non-converted class), it will be given to Qilletni as a JavaType |
 
 ### Skipping Automatic Type Conversion
 
-If a type is returned and you don't want it to automatically convert, such as returning a JavaType of HashMap without converting it to the Map entity, the [@SkipReturnTypeAdapter](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lib/annotations/SkipReturnTypeAdapter.html) annotation may be used on the method. The following is an example that is used in the Map entity itself, to initialize a Java type of HashMap.
+If a type is returned and you don't want it to automatically convert, such as returning a JavaType of HashMap without converting it to the Map entity, the [@SkipReturnTypeAdapter](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lib/annotations/SkipReturnTypeAdapter.html) annotation may be used on the method. The following is an example that is used in the Map entity itself, to initialize a Java type of HashMap.
 
 ```java title="MapFunctions.java"
 @SkipReturnTypeAdapter
@@ -113,7 +113,7 @@ public static Object _emptyJavaMap() {
 
 Entities are a little more complicated to handle in native methods, as they are inherently more complex than the predefined types. Luckily, Qilletni has the full ability to manipulate them and make your own.
 
-When an entity instance is passed into a native method, it is passed in as an [EntityType](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/EntityType.html). To access the fields or functions in the entity, [getEntityScope()](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/EntityType.html#getEntityScope()) can be used, as shown below.
+When an entity instance is passed into a native method, it is passed in as an [EntityType](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/EntityType.html). To access the fields or functions in the entity, [getEntityScope()](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/EntityType.html#getEntityScope()) can be used, as shown below.
 
 ```qilletni title="cats.ql"
 entity Cat {
@@ -143,7 +143,7 @@ public class CatFunctions {
 }
 ```
 
-The first [getValue()](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/table/Symbol.html#getValue()) call returns the value of the [Symbol](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/table/Symbol.html), which is an internal representation of a variable that may hold any Qilletni type. From there, the value from each is gotten which is the actual type instance. Note that IntTypes are internally represented as `long`s.
+The first [getValue()](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/table/Symbol.html#getValue()) call returns the value of the [Symbol](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/table/Symbol.html), which is an internal representation of a variable that may hold any Qilletni type. From there, the value from each is gotten which is the actual type instance. Note that IntTypes are internally represented as `long`s.
 
 If a variable is changed, the Symbol does not need to be re-set, but it can be. An example of a variable being updated is:
 
@@ -165,7 +165,7 @@ public void catBirthday(EntityType catEntity) {
 
 ### Entity/Record Conversion
 
-Entities may also be automatically converted to and from Java records, using the [TypeConverter](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/conversion/TypeConverter.html) class. The instance of this class is acquired through automatic injection, see [Native Bind Factories](/native_binding/native_bind_factories/) for more information, and the other classes available to use. Below is an example of taking in an entity and automatically converting it to a record.
+Entities may also be automatically converted to and from Java records, using the [TypeConverter](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/conversion/TypeConverter.html) class. The instance of this class is acquired through automatic injection, see [Native Bind Factories](/native_binding/native_bind_factories/) for more information, and the other classes available to use. Below is an example of taking in an entity and automatically converting it to a record.
 
 ```qilletni title="cats.ql"
 entity Cat {
@@ -198,9 +198,9 @@ public class CatFunctions {
 }
 ```
 
-The above code uses the [convertFromEntityToRecord](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/conversion/TypeConverter.html#convertFromEntityToRecord(is.yarr.qilletni.api.lang.types.EntityType,java.lang.Class)) method to take an EntityType, and map its properties to a Java record that has fields of the same name.
+The above code uses the [convertFromEntityToRecord](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/conversion/TypeConverter.html#convertFromEntityToRecord(dev.qilletni.api.lang.types.EntityType,java.lang.Class)) method to take an EntityType, and map its properties to a Java record that has fields of the same name.
 
-Similarly, the [convertFromRecordToEntity](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/conversion/TypeConverter.html#convertFromRecordToEntity(java.lang.String,java.lang.Object)) method does the opposite, taking a Record and mapping it to an EntityType, matching its values up with the constructor of the entity, as shown below. This assumes the Cat entity is still defined.
+Similarly, the [convertFromRecordToEntity](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/conversion/TypeConverter.html#convertFromRecordToEntity(java.lang.String,java.lang.Object)) method does the opposite, taking a Record and mapping it to an EntityType, matching its values up with the constructor of the entity, as shown below. This assumes the Cat entity is still defined.
 
 ```qilletni title="cats.ql"
 native fun createNewCat(name, age)
@@ -233,7 +233,7 @@ entity Cat {
 }
 ```
 
-Implementing this function in Java uses the [@NativeOn](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lib/annotations/NativeOn.html) annotation on the method. This takes in the entity name this is on (`on` in a similar context to an extension method's syntax).
+Implementing this function in Java uses the [@NativeOn](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lib/annotations/NativeOn.html) annotation on the method. This takes in the entity name this is on (`on` in a similar context to an extension method's syntax).
 
 ```java title="CatFunctions.java"
 @NativeOn("Cat")
@@ -261,7 +261,7 @@ Qilletni providers a set of classes that may be put in the constructor, and are 
 
 ## Preload Methods
 
-Sometimes, especially in the case of when many methods are being performed on the same entity, a common action must happen before any of the methods get invoked. Executing code other than member variable setting is not recommended, so for this, the [@BeforeAnyInvocation](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lib/annotations/BeforeAnyInvocation.html) annotation may be used on a single method in the class, which will be invoked before the body of any native method is ran. This method takes one parameter, which is the EntityType the method is being invoked on. This may set up instance variables (as there is one instance of the class for every call) or do anything else necessary. The example below is from the standard library std-lib, ensuring the song is populated with service provider data before an invocation is made on it.
+Sometimes, especially in the case of when many methods are being performed on the same entity, a common action must happen before any of the methods get invoked. Executing code other than member variable setting is not recommended, so for this, the [@BeforeAnyInvocation](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lib/annotations/BeforeAnyInvocation.html) annotation may be used on a single method in the class, which will be invoked before the body of any native method is ran. This method takes one parameter, which is the EntityType the method is being invoked on. This may set up instance variables (as there is one instance of the class for every call) or do anything else necessary. The example below is from the standard library std-lib, ensuring the song is populated with service provider data before an invocation is made on it.
 
 ```java title="SongFunctions.java"
 @NativeOn("song")
@@ -283,4 +283,4 @@ public class SongFunctions {
 }
 ```
 
-1. If the `@BeforeAnyInvocation` method wasn't ran and the song hadn't been loaded yet, [getTrack()](https://api.qilletni.yarr.is/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/SongType.html#getTrack()) would be null.
+1. If the `@BeforeAnyInvocation` method wasn't ran and the song hadn't been loaded yet, [getTrack()](https://api.qilletni.dev/Qilletni.qilletni.api.main/is/yarr/qilletni/api/lang/types/SongType.html#getTrack()) would be null.

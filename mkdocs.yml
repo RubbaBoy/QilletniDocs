@@ -2,8 +2,8 @@
 
 site_name: "Qilletni Language Docs"
 site_description: "Documentation, code examples, and library help for Qilletni"
-site_url: "https://qilletni.yarr.is/"  # Update this to your site URL if you have one
-repo_url: "https://github.com/RubbaBoy/QilletniDocs"  # Example: link to your repo
+site_url: "https://qilletni.dev/"
+repo_url: "https://github.com/RubbaBoy/Qilletni"
 
 theme:
   name: 'material'
@@ -42,6 +42,7 @@ nav:
           - Type system*: language/types/type_system.md
       - Service Providers*: language/service_providers.md
       - Documenting Code*: language/documenting_code.md
+      - Debugging: language/debugging.md
   - Native Binding:
       - Introduction: native_binding/introduction.md
       - Native Functions: native_binding/native_functions.md

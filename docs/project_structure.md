@@ -148,11 +148,11 @@ author: Adam Yarris
 description: A service provider that adds support for Spotify
 dependencies:
   - 1.0.0:postgres
-provider: is.yarr.qilletni.music.spotify.provider.SpotifyServiceProvider
-native_bind_factory: is.yarr.qilletni.lib.spotify.SpotifyNativeFunctionBindingFactory
+provider: dev.qilletni.music.spotify.provider.SpotifyServiceProvider
+native_bind_factory: dev.qilletni.lib.spotify.SpotifyNativeFunctionBindingFactory
 native_classes:
-  - is.yarr.qilletni.lib.spotify.PlayRedirect
-  - is.yarr.qilletni.lib.spotify.PlaylistToolsFunctions
+  - dev.qilletni.lib.spotify.PlayRedirect
+  - dev.qilletni.lib.spotify.PlaylistToolsFunctions
 auto_import:
   - core.ql
 ```

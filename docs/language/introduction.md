@@ -38,7 +38,7 @@ if (age >= 18) {
 }
 
 for (name : names) {
-    print(name);
+    print(name)
 }
 
 for (i..10) { // Prints 0-9
