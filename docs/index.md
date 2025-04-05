@@ -1,6 +1,18 @@
 # Welcome to Qilletni
 
-Qilletni is a powerful **Domain-Specific Language (DSL)** designed for **playlist management**, **music curation**, and seamless integration with services like **Spotify** and **Java** libraries. Whether you're a music enthusiast or a developer seeking advanced automation, Qilletni provides a flexible and expressive syntax to handle all your playlisting needs.
+Qilletni is a powerful Domain Specific Language for all things music. Seamlessly link streaming services and statistics platforms to curate playlists, find new music, automate playing, and integrate with external tools and APIs with its flexible syntax and library set.
+
+---
+
+## Key Features
+
+- **Platform Integration**: Import packages to gain access to different music platforms, such as **spotify** and **lastfm**
+- **Platform-Agnostic Types**: Songs, artists, albums, etc. are automatically converted between music platforms for seamless use
+- **Weight-Based Music Selection**: Use [weighted collections](language/types/built_in_types.md#Weights) for advanced playlist orchestration
+- **Native Java Bindings**: Leverage Java libraries for enhanced functionality as if they were written in Qilletni
+- **Package Support**: Create your own reusable package with our package manager, or leverage existing packages such as [http](https://docs.qilletni.dev/library/http/), [json](https://docs.qilletni.dev/library/json/), [postgres](https://docs.qilletni.dev/library/postgres/), or [metadata](https://docs.qilletni.dev/library/metadata/)
+
+[Learn More →](key_features.md)
 
 ---
 
@@ -30,57 +42,21 @@ play myCollection limit[10]
 
 ---
 
-## Key Features
-
-- **Spotify Integration**: Effortlessly interact with Spotify for playlist creation, recommendations, and song management.
-- **Weight-Based Music Selection**: Use weighted collections for advanced playlisting.
-- **Seamless Java Bindings**: Leverage Java libraries for enhanced functionality.
-- **Rich Standard Library**: Includes tools for collections, metadata, HTTP utilities, and more.
-
-[Learn More →](key_features.md)
-
----
-
-## Tutorials and Examples
-
-Expand your Qilletni knowledge with hands-on tutorials and examples:
-
-- **[Beginner Tutorials](tutorials/beginner.md)**: Create playlists, use weights, and play songs.
-- **[Advanced Examples](examples.md)**: Integrate metadata matching, rolling histories, and custom logic.
-
-[Explore Tutorials →](tutorials.md)
-
----
-
 ## Reference Documentation
 
 Dive deep into the Qilletni language and its libraries:
 
-- **[Language Reference](language_reference.md)**: Syntax, entities, functions, and control flow.
-- **[API Reference](api_reference.md)**: Detailed documentation of all entities, methods, and libraries.
-
-[View API Docs →](api_reference.md)
+- **[Language Reference](language/introduction.md)**: Syntax, entities, functions, and control flow.
+- **[Library Reference](https://docs.qilletni.dev/)**: Qilletni documentation for all official packages
+- **[Java API Reference](https://api.qilletni.dev/)**: Documentation for all API methods provided by Qilletni to make your own service providers packages with native bindings
 
 ---
 
 ## Why Qilletni?
 
-Qilletni empowers developers and music enthusiasts to:
+Working with any music service API is largely boilerplate, moving your focus away from what you're making to how to make it. Qilletni provides a familiar C-style syntax with its own music-specific features to speed up the process of creation.
 
-1. Automate playlist creation with custom logic.
-2. Integrate seamlessly with Spotify's APIs and Java libraries.
-3. Leverage a concise and expressive syntax tailored for music curation.
-
-Ready to dive in? Start with our [Getting Started Guide](quickstart/getting_started.md).
-
----
-
-## Community and Contributions
-
-- **Report Bugs**: Help us improve by reporting issues.
-- **Contribute**: Add to the standard library or suggest new features.
-
-[Join the Community →](contributing.md)
+It's never been this easy to programmatically transfer songs or playlist from one music service to another, or manipulate how playlists are played.
 
 ---
 
@@ -142,7 +118,7 @@ collection myNewPlaylist = createPlaylist("Qilletni generated on %d/%d".format([
 
 // Add the songs to the new playlist
 addToPlaylist(myNewPlaylist, songList)
-print("Created a playlist with %s songs".format([songList.size()]))
+printf("Created a playlist with %s songs", [songList.size()])
 ```
 
 Explore more examples in our [Examples Section →](examples.md)
