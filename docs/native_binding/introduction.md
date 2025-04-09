@@ -4,7 +4,7 @@ Native bindings in Qilletni allow for the use of Java code in a normal program t
 
 See the following resources for more information regarding native bindings:
 
-- [Native Methods](/native_binding/native_methods) to see how native methods are set up and work
+- [Native Methods](/native_binding/native_functions) to see how native methods are set up and work
 - [Native Bind Factories](/native_binding/native_bind_factories) to see how custom objects can be injected into native method's classes
 - [Usage Examples](/native_binding/usage_examples) for more advanced examples of how native binding works, including property accessing and invoking Qilletni methods from a Java method
 

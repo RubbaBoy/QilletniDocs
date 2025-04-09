@@ -4,26 +4,48 @@ Welcome to **Qilletni**, a Domain-Specific Language (DSL) designed for advanced 
 
 ---
 
-### 1. Introduction
+## Introduction
 
 Qilletni simplifies the creation and manipulation of playlists and music data, allowing you to automate tasks, integrate with external libraries, and leverage a rich standard library.  
 If you’d like a broader overview of Qilletni, see the [Home](../index.md) page for more details.
 
 ---
 
-### 2. Installation
+## Installation
 
-#### 2.1 Prerequisites
-- **Java Runtime**: Ensure you have Java 20 (or higher) installed
+### Prerequisites
+- **Java Runtime**: Ensure you have Java 22 (or higher) installed
 - **Spotify Account**: For Spotify integration, a Spotify account is required. Some features may require a premium account
+- **Docker or Postgres**: A database is required for caching music information
 
-#### 2.2 Install Qilletni
+**Start Database**
 
-// TODO
+The easiest way to start a caching databse is via docker, using a command such as:
+
+```bash
+docker run -d \
+  --name qilletni-db \
+  -p 5435:5432 \
+  -e POSTGRES_USER=qilletni \
+  -e POSTGRES_PASSWORD=pass \
+  -e POSTGRES_DB=qilletni \
+  -v ~/.qilletni/cache:/var/lib/postgresql/data \
+  postgres
+```
+
+### Install Qilletni
+
+To install Qilletni, run the following in a bash shell:
+
+```bash
+curl https://qilletni.dev/install.sh | bash
+```
+
+
 
 ---
 
-### 3. Hello World (Your First Program)
+## Hello World (Your First Program)
 
 Let’s create a simple "Hello, World!" program:
 
@@ -67,7 +89,7 @@ Hello, World!
 
 [//]: # (## 4. Key Language Concepts &#40;Quick Overview&#41;)
 
-[//]: # ()
+[//]: #
 [//]: # (### 4.1 Imports)
 
 [//]: # (Bring functionality into your scripts. For example:)
@@ -80,7 +102,7 @@ Hello, World!
 
 [//]: # (```)
 
-[//]: # ()
+[//]: #
 [//]: # (### 4.2 Entities)
 
 [//]: # (Entities are like classes or objects:)
@@ -97,7 +119,7 @@ Hello, World!
 
 [//]: # (```)
 
-[//]: # ()
+[//]: #
 [//]: # (### 4.3 Functions)
 
 [//]: # (Define custom behavior:)
@@ -112,7 +134,7 @@ Hello, World!
 
 [//]: # (```)
 
-[//]: # ()
+[//]: #
 [//]: # (### 4.4 Variables & Data Types)
 
 [//]: # (- **Basic types**: `string`, `int`, `boolean`, etc.)
@@ -129,37 +151,37 @@ Hello, World!
 
 [//]: # (  ```)
 
-[//]: # ()
+[//]: #
 [//]: # (---)
 
-[//]: # ()
+[//]: #
 [//]: # (## 5. Optional: Quick Spotify Example)
 
-[//]: # ()
+[//]: #
 [//]: # (If you have Spotify credentials and want to experiment:)
 
-[//]: # ()
+[//]: #
 [//]: # (```qilletni)
 
 [//]: # (import "spotify:play_redirect.ql")
 
-[//]: # ()
+[//]: #
 [//]: # (collection myFavs = "My Favorite Playlist" collection by "myUsername")
 
 [//]: # (play myFavs limit[5]  // Plays 5 tracks from "My Favorite Playlist")
 
 [//]: # (```)
 
-[//]: # ()
+[//]: #
 [//]: # (You may need to configure your API tokens in your environment or config file to enable these calls.)
 
-[//]: # ()
+[//]: #
 [//]: # (---)
 
-[//]: # ()
+[//]: #
 [//]: # (## 6. Basic Debugging & Logging)
 
-[//]: # ()
+[//]: #
 [//]: # (1. **Use `print&#40;&#41;`**:)
 
 [//]: # (   ```qilletni)
@@ -176,7 +198,7 @@ Hello, World!
 
 [//]: # (    - **Spotify Auth Errors**: If your credentials are incorrect or missing.)
 
-[//]: # ()
+[//]: #
 [//]: # (---)
 
 <br>

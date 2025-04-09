@@ -5,7 +5,7 @@ Music is handled through a service provider, which is a Qilletni package with ad
 ```qilletni
 import "lastfm:lastfm.ql"
 
-provider "lastfm"// !(1)
+provider "lastfm" // (1)!
 
 print("\tProvider is Last.FM")
 
@@ -13,14 +13,14 @@ Page page = new Page()
                 ..page = 1
                 ..count = 1
 
-song topSong = getTopTracks("RubbaBoy", "7day", page).data[0] // !(2)
+song topSong = getTopTracks("RubbaBoy", "7day", page).data[0] // (2)!
 
 print(topSong)
 
-provider "spotify" {// !(3)
+provider "spotify" { // (3)!
     print("\tProvider is Spotify")
     
-    print(topSong.getId())// !(4)
+    print(topSong.getId()) // (4)!
 }
 ```
 
