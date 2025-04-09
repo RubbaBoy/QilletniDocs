@@ -41,8 +41,6 @@ To install Qilletni, run the following in a bash shell:
 curl https://qilletni.dev/install.sh | bash
 ```
 
-
-
 ---
 
 ## Hello World (Your First Program)
@@ -68,7 +66,7 @@ qilletni_demo/
 
 The file created, `qilletni_demo.ql`, is the start of your source code. Right now, it only contains:
 
-```qilletni
+```qilletni title="qilletni_demo.ql"
 print("Hello, World!")
 ```
 
@@ -77,7 +75,7 @@ A more in-depth explanation of the project structure, and other project types, c
 2. **Run** the program via command line:
 
 ```bash
-qilletni qilletni-src/qilletni_demo.ql
+qilletni run qilletni-src/qilletni_demo.ql
 ```
 
    If everything is set up correctly, you should see:

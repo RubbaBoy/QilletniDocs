@@ -32,7 +32,8 @@ nav:
     - Welcome: index.md
     - Quickstart:
         - Getting Started: quickstart/getting_started.md
-        - Spotify Integration*: quickstart/spotify_integration.md
+        - Spotify Integration: quickstart/spotify_integration.md
+        - Last.Fm Integration: quickstart/lastfm_integration.md
     - Project Structure: project_structure.md
     - Language:
         - Introduction: language/introduction.md
