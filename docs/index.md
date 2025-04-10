@@ -12,7 +12,7 @@ Qilletni is a powerful Domain Specific Language for all things music. Seamlessly
 - **Native Java Bindings**: Leverage Java libraries for enhanced functionality as if they were written in Qilletni
 - **Package Support**: Create your own reusable package with our package manager, or leverage existing packages such as [http](https://docs.qilletni.dev/library/http/), [json](https://docs.qilletni.dev/library/json/), [postgres](https://docs.qilletni.dev/library/postgres/), or [metadata](https://docs.qilletni.dev/library/metadata/)
 
-[Learn More →](key_features.md)
+[Get Started →](quickstart/getting_started)
 
 ---
 
@@ -38,7 +38,7 @@ collection myCollection = "My Playlist" collection by "username" weights[myWeigh
 play myCollection limit[10]
 ```
 
-[Start Now →](quickstart/getting_started.md)
+[Start Now →](quickstart/getting_started)
 
 ---
 

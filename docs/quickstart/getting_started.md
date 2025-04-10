@@ -6,21 +6,16 @@ Welcome to **Qilletni**, a Domain-Specific Language (DSL) designed for advanced 
 
 ## Introduction
 
-Qilletni simplifies the creation and manipulation of playlists and music data, allowing you to automate tasks, integrate with external libraries, and leverage a rich standard library.  
+Qilletni simplifies the creation and manipulation of playlists and music data, allowing you to automate tasks, integrate with external libraries, and leverage a rich standard library.
 If you’d like a broader overview of Qilletni, see the [Home](../index.md) page for more details.
 
 ---
 
 ## Installation
 
-### Prerequisites
-- **Java Runtime**: Ensure you have Java 22 (or higher) installed
-- **Spotify Account**: For Spotify integration, a Spotify account is required. Some features may require a premium account
-- **Docker or Postgres**: A database is required for caching music information
+### Start Database
 
-**Start Database**
-
-The easiest way to start a caching databse is via docker, using a command such as:
+Qilletni leverages a database for caching music data for efficient lookups and conversions. The easiest way to start a caching database is via docker, using a command such as:
 
 ```bash
 docker run -d \
@@ -35,10 +30,44 @@ docker run -d \
 
 ### Install Qilletni
 
-To install Qilletni, run the following in a bash shell:
+There are two ways to use Qilletni. You may install it on your system, or use the Docker image. A normal system install is recommended (everything is put under `~/.qilletni`), but a Docker install is great for trying things out.
+
+#### Install on System
+
+For a system install, first install you have at least Java 22 installed. To install Qilletni, run the following in a bash shell:
 
 ```bash
 curl https://qilletni.dev/install.sh | bash
+```
+
+Then, open a new shell or run `source ~/.bashrc`
+
+From there, you can run `qilletni --help` for a list of commands.
+
+#### Use with Docker
+
+To use with Docker, run the following:
+
+```bash
+docker run --rm \
+  --network host \
+  -v qilletni-docker-run:/root \
+  -v "/$(pwd)":/data \
+  ghcr.io/rubbaboy/qilletni:latest \
+  --help
+```
+
+Which is equivalent to running `qilletni --help`
+
+To run a file, it's recommended to `cd` into the parent directory of the file and run it from there. For example, to run `/e/qilletni/demo.ql` you would do, from the `/e/qilletni` directory,
+
+```bash
+docker run --rm \
+  --network host \
+  -v qilletni-docker-run:/root \
+  -v "/$(pwd)":/data \
+  ghcr.io/rubbaboy/qilletni:latest \
+  run demo.ql
 ```
 
 ---
@@ -84,145 +113,7 @@ qilletni run qilletni-src/qilletni_demo.ql
 Hello, World!
 ```
 
+## Next Steps
 
-[//]: # (## 4. Key Language Concepts &#40;Quick Overview&#41;)
+Now that you have a Qilletni program running, it's time to link a music service. Check out the [Spotify](spotify_integration) or [Last.Fm](lastfm_integration) pages for more info. If you've done that, feel tree to check out the [Language Introduction](/language/introduction) or some of the [official packages](/packages/introduction).
 
-[//]: #
-[//]: # (### 4.1 Imports)
-
-[//]: # (Bring functionality into your scripts. For example:)
-
-[//]: # (```qilletni)
-
-[//]: # (import "spotify:recommendations.ql")
-
-[//]: # (import "std:types/collections/queue.ql")
-
-[//]: # (```)
-
-[//]: #
-[//]: # (### 4.2 Entities)
-
-[//]: # (Entities are like classes or objects:)
-
-[//]: # (```qilletni)
-
-[//]: # (entity Artist {)
-
-[//]: # (    string _id)
-
-[//]: # (    string _name)
-
-[//]: # (})
-
-[//]: # (```)
-
-[//]: #
-[//]: # (### 4.3 Functions)
-
-[//]: # (Define custom behavior:)
-
-[//]: # (```qilletni)
-
-[//]: # (fun greet&#40;name&#41; {)
-
-[//]: # (    print&#40;"Hello, " + name + "!"&#41;)
-
-[//]: # (})
-
-[//]: # (```)
-
-[//]: #
-[//]: # (### 4.4 Variables & Data Types)
-
-[//]: # (- **Basic types**: `string`, `int`, `boolean`, etc.)
-
-[//]: # (- **Special Qilletni types**: `song`, `collection`, `weights`)
-
-[//]: # (- **Example**:)
-
-[//]: # (  ```qilletni)
-
-[//]: # (  int x = 42)
-
-[//]: # (  string msg = "Qilletni DSL")
-
-[//]: # (  ```)
-
-[//]: #
-[//]: # (---)
-
-[//]: #
-[//]: # (## 5. Optional: Quick Spotify Example)
-
-[//]: #
-[//]: # (If you have Spotify credentials and want to experiment:)
-
-[//]: #
-[//]: # (```qilletni)
-
-[//]: # (import "spotify:play_redirect.ql")
-
-[//]: #
-[//]: # (collection myFavs = "My Favorite Playlist" collection by "myUsername")
-
-[//]: # (play myFavs limit[5]  // Plays 5 tracks from "My Favorite Playlist")
-
-[//]: # (```)
-
-[//]: #
-[//]: # (You may need to configure your API tokens in your environment or config file to enable these calls.)
-
-[//]: #
-[//]: # (---)
-
-[//]: #
-[//]: # (## 6. Basic Debugging & Logging)
-
-[//]: #
-[//]: # (1. **Use `print&#40;&#41;`**:)
-
-[//]: # (   ```qilletni)
-
-[//]: # (   print&#40;"Debug message..."&#41;)
-
-[//]: # (   ```)
-
-[//]: # (2. **Common Errors**:)
-
-[//]: # (    - **Missing Entity**: If an entity or function is not defined.)
-
-[//]: # (    - **Invalid Type**: Passing a `song` to a function expecting `int`.)
-
-[//]: # (    - **Spotify Auth Errors**: If your credentials are incorrect or missing.)
-
-[//]: #
-[//]: # (---)
-
-<br>
-
----
-
-## 7. Next Steps
-
-Congratulations on running your first Qilletni script! Below are a few places to continue:
-
-- **[Language Reference](../language_reference.md)**: Explore Qilletni’s syntax, statements, and more.
-- **[Tutorials](tutorials.md)**: Step-by-step guides for playlist creation, weighting, advanced recommendations, etc.
-- **[Libraries & Modules](libraries.md)**: Learn about standard libraries like `collections`, `metadata`, and the Spotify modules.
-- **[Examples](../examples.md)**: Browse real-world `.ql` scripts showcasing Qilletni features.
-
----
-
-## 8. FAQ / Common Issues
-
-1. **Java Version Mismatch**
-    - Make sure you have at least Java 8. Older versions may not be supported.
-2. **Command Not Found**
-    - Ensure the `qilletni` command or script is in your PATH or specify the full path to it.
-3. **Spotify Credentials**
-    - Confirm that your environment is set to recognize your Spotify API keys if you’re using Spotify-related modules.
-
----
-
-That’s it! You’re ready to start exploring the power of Qilletni. If you have any questions or run into issues, visit our [FAQ](faq.md) or open a discussion on our [GitHub repository](https://github.com/YourOrg/qilletni/discussions).
