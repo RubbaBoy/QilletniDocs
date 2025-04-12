@@ -37,7 +37,7 @@ There are two ways to use Qilletni. You may install it on your system, or use th
 For a system install, first install you have at least Java 22 installed. To install Qilletni, run the following in a bash shell:
 
 ```bash
-curl https://qilletni.dev/install.sh | bash
+curl https://raw.githubusercontent.com/RubbaBoy/QilletniToolchain/refs/heads/master/scripts/install.sh | bash
 ```
 
 Then, open a new shell or run `source ~/.bashrc`
